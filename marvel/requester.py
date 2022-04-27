@@ -6,11 +6,12 @@ from marvel.endpoint_manager import EndpointManager
 
 
 class Requester(EndpointManager):
-    def __init__(self, PUBLIC_KEY, PRIVATE_KEY):
+    def __init__(self, PUBLIC_KEY, PRIVATE_KEY, LIMIT):
         super().__init__()
         self.PUBLIC_KEY = PUBLIC_KEY
         self.PRIVATE_KEY = PRIVATE_KEY
         self.r = object
+        self.limit = LIMIT
 
     def request(
         self, endpoint_name, payload=None, sub_endpoint=None, identifier=None, raw=None
@@ -22,6 +23,11 @@ class Requester(EndpointManager):
             url += "/" + str(identifier)
         if sub_endpoint is not None:
             url += "/" + sub_endpoint
+        if self.limit is not None:
+            assert self.limit <= 100, (
+                "limit %d higher than the maximum 100 can be supported" % self.limit
+            )
+            payload["limit"] = self.limit
         query = self.get_query_with_authentication_params(payload)
         self.r = requests.get(url, params=query)
         if raw:

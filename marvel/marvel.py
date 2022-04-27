@@ -8,8 +8,8 @@ from marvel.modules.stories import Stories
 
 
 class Marvel(Base):
-    def __init__(self, PUBLIC_KEY, PRIVATE_KEY):
-        super().__init__(PUBLIC_KEY, PRIVATE_KEY)
+    def __init__(self, PUBLIC_KEY, PRIVATE_KEY, LIMIT=None):
+        super().__init__(PUBLIC_KEY, PRIVATE_KEY, LIMIT)
         self.characters = Characters(requester=self.requester)
         self.events = Events(requester=self.requester)
         self.series = Series(requester=self.requester)
