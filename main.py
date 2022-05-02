@@ -9,7 +9,7 @@ chCrawler = charactersCrawler(
     PRIVATE_KEY=PRIVATE_KEY,
     num_total=2000,
     limit=50,
-    output_dir="./data/",
+    output_dir="./data/characters/",
 )
 
 chCrawler.get_data()
