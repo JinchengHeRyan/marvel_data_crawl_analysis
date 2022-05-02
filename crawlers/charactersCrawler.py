@@ -26,10 +26,9 @@ class charactersCrawler:
     def get_data(self):
         for i in range(self.num_needed // self.limit):
             all_characters = self.characters.all(offset=self.offset)
-            self.save_data(self, all_characters)
+            self.save_data(all_characters)
             self.offset += self.limit
 
-    @staticmethod
     def save_data(self, all_characters):
         os.makedirs(self.output_dir, exist_ok=True)
         output_path = os.path.join(self.output_dir, "{}.json".format(self.offset))
