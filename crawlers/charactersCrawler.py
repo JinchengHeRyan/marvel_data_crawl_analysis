@@ -31,3 +31,18 @@ class charactersCrawler(CrawlerBase):
         all_characters = json.dumps(all_characters, indent=4)
         outputFile.write(all_characters)
         outputFile.close()
+
+    @staticmethod
+    def combinedJson2CSV(inputCombinedJson: str, outputCSVpath: str):
+        os.makedirs(outputCSVpath, exist_ok=True)
+        csv_path = os.path.join(outputCSVpath, "all_characters.csv")
+        csvfile = open(csv_path, "w")
+        csvfile.write("id,name\n")
+
+        json_file = open(inputCombinedJson, "r")
+        data = json.load(json_file)
+        for i in range(len(data["results"])):
+            id = data["results"][i]["id"]
+            name = data["results"][i]["name"]
+            csvfile.write("{},{}\n".format(str(id), name))
+        csvfile.close()
