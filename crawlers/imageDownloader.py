@@ -1,7 +1,7 @@
 import os
 import json
-from typing import List
 import requests
+from .utils.util import getJsonFiles
 
 
 class imageDownloader:
@@ -10,17 +10,9 @@ class imageDownloader:
         self.outputImageDir = outputImageDir
         self.jsonFiles = list()
 
-    def getJsonFiles(self) -> List[str]:
-        files = [
-            os.path.join(self.inputJsonDir, file)
-            for file in os.listdir(self.inputJsonDir)
-            if "json" in file
-        ]
-        return files
-
     def getIDImageURL(self) -> dict:
         ID2ImageURL = dict()
-        jsonFiles = self.getJsonFiles()
+        jsonFiles = getJsonFiles(self.inputJsonDir)
         for file_path in jsonFiles:
             file = open(file_path, "r")
             data = json.load(file)
