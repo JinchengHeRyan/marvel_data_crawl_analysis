@@ -1,3 +1,5 @@
+from crawlers.Base import CrawlerBase
 from crawlers.charactersCrawler import charactersCrawler
 from crawlers.imageDownloader import imageDownloader
 from crawlers.eventsCrawler import eventsCrawler
+from crawlers.events2charactersCrawler import events2charactersCrawler
