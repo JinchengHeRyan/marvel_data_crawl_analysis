@@ -1,2 +1,3 @@
 from crawlers.charactersCrawler import charactersCrawler
 from crawlers.imageDownloader import imageDownloader
+from crawlers.eventsCrawler import eventsCrawler
