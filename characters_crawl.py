@@ -10,11 +10,11 @@ chCrawler = charactersCrawler(
     PRIVATE_KEY=PRIVATE_KEY,
     num_total=2000,
     limit=50,
-    output_dir="./data/characters/",
+    output_dir="./data/characters/JSON/",
 )
 
 imageD = imageDownloader(
-    inputJsonDir="./data/characters", outputImageDir="./data/images/characters/"
+    inputJsonDir="./data/characters/JSON/", outputImageDir="./data/characters/images/"
 )
 
 if __name__ == "__main__":
