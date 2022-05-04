@@ -11,11 +11,13 @@ class events2charactersCrawler(CrawlerBase):
         limit: int,
         combinedJsonDir: str,
         csvOutputPath: str,
+        resume_event_id=None,
     ):
         super().__init__(PUBLIC_KEY, PRIVATE_KEY, limit)
         self.combinedJsonDir = combinedJsonDir
         self.csvOutputPath = csvOutputPath
         self.events = self.m.events
+        self.resume_event_id = resume_event_id
 
     def getEventsList(self):
         """
@@ -25,6 +27,7 @@ class events2charactersCrawler(CrawlerBase):
         file = open(self.combinedJsonDir, "r")
         data = json.load(file)
         events_list = [data["results"][i]["id"] for i in range(len(data["results"]))]
+        events_list.sort()
         file.close()
         return events_list
 
@@ -62,8 +65,15 @@ class events2charactersCrawler(CrawlerBase):
         csvfile.close()
 
     def get_write_data(self):
-        self.CSVinit()
         events_list = self.getEventsList()
-        for eventid in events_list:
-            charactersList = self.getCharacters(eventID=eventid)
-            self.writeCSV(eventID=eventid, charactersList=charactersList)
+        if self.resume_event_id is None:
+            self.CSVinit()
+            for eventid in events_list:
+                charactersList = self.getCharacters(eventID=eventid)
+                self.writeCSV(eventID=eventid, charactersList=charactersList)
+        else:
+            curIndex = events_list.index(self.resume_event_id)
+            for i in range(curIndex, len(events_list)):
+                eventid = events_list[i]
+                charactersList = self.getCharacters(eventID=eventid)
+                self.writeCSV(eventID=eventid, charactersList=charactersList)
