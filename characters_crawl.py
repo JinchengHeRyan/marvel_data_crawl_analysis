@@ -30,3 +30,9 @@ if __name__ == "__main__":
         inputJsonDir="./data/characters/JSON/",
         outputCombinedDir="./data/characters/JSON/combined/",
     )
+
+    # Transfer json to csv
+    chCrawler.combinedJson2CSV(
+        inputCombinedJson="./data/characters/JSON/combined/combined.json",
+        outputCSVpath="./data/characters/CSV/",
+    )
