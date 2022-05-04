@@ -73,7 +73,7 @@ class events2charactersCrawler(CrawlerBase):
                 self.writeCSV(eventID=eventid, charactersList=charactersList)
         else:
             curIndex = events_list.index(self.resume_event_id)
-            for i in range(curIndex, len(events_list)):
+            for i in range(curIndex + 1, len(events_list)):
                 eventid = events_list[i]
                 charactersList = self.getCharacters(eventID=eventid)
                 self.writeCSV(eventID=eventid, charactersList=charactersList)
