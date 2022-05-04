@@ -2,6 +2,7 @@ import networkx as nx
 import pandas as pd
 import json
 import os
+from typing import List
 
 
 class GraphBuilder:
@@ -36,7 +37,10 @@ class GraphBuilder:
         return self.graph
 
     def centralityRank_to_csv(
-        self, characters_combined_json_path: str, output_path: str
+        self,
+        centrality_types: List[str],
+        characters_combined_json_path: str,
+        output_path: str,
     ):
         json_file = open(characters_combined_json_path, "r")
         data = json.load(json_file)
@@ -47,15 +51,16 @@ class GraphBuilder:
             characters_dict[id] = name
 
         self.get_graph()
-        centrality = nx.betweenness_centrality(self.graph)
-        centrality = sorted(centrality.items(), key=lambda x: x[1], reverse=True)
+        for cent_type in centrality_types:
+            centrality = getattr(nx, cent_type)(self.graph)
+            centrality = sorted(centrality.items(), key=lambda x: x[1], reverse=True)
 
-        os.makedirs(output_path, exist_ok=True)
-        csv_path = os.path.join(output_path, "centrality_rank.csv")
-        csv_file = open(csv_path, "w")
-        csv_file.write("id,name,score\n")
-        for item in centrality:
-            id = int(item[0])
-            score = item[1]
-            name = characters_dict[id]
-            csv_file.write("{},{},{}\n".format(str(id), name, str(score)))
+            os.makedirs(output_path, exist_ok=True)
+            csv_path = os.path.join(output_path, "{}.csv".format(cent_type))
+            csv_file = open(csv_path, "w")
+            csv_file.write("id,name,score\n")
+            for item in centrality:
+                id = int(item[0])
+                score = item[1]
+                name = characters_dict[id]
+                csv_file.write("{},{},{}\n".format(str(id), name, str(score)))
