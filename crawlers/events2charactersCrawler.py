@@ -1,4 +1,5 @@
 from crawlers.Base import CrawlerBase
+import os
 import json
 
 
@@ -14,17 +15,18 @@ class events2charactersCrawler(CrawlerBase):
         super().__init__(PUBLIC_KEY, PRIVATE_KEY, limit)
         self.combinedJsonDir = combinedJsonDir
         self.csvOutputPath = csvOutputPath
-        self.events_list = None
         self.events = self.m.events
 
     def getEventsList(self):
+        """
+        Get a list of events ID from the combined json file
+        :return: events list
+        """
         file = open(self.combinedJsonDir, "r")
         data = json.load(file)
-        self.events_list = [
-            data["results"][i]["id"] for i in range(len(data["results"]))
-        ]
+        events_list = [data["results"][i]["id"] for i in range(len(data["results"]))]
         file.close()
-        return self.events_list
+        return events_list
 
     def getCharacters(self, eventID: int):
         """
@@ -43,3 +45,25 @@ class events2charactersCrawler(CrawlerBase):
             ]
             offset += self.limit
         return characters
+
+    def CSVinit(self):
+        os.makedirs(self.csvOutputPath, exist_ok=True)
+        csvPath = os.path.join(self.csvOutputPath, "event2characters.csv")
+        csvfile = open(csvPath, "a")
+        csvfile.write("eventID,characterID\n")
+        csvfile.close()
+
+    def writeCSV(self, eventID, charactersList):
+        os.makedirs(self.csvOutputPath, exist_ok=True)
+        csvPath = os.path.join(self.csvOutputPath, "event2characters.csv")
+        csvfile = open(csvPath, "a")
+        for ch in charactersList:
+            csvfile.write("{},{}\n".format(eventID, ch))
+        csvfile.close()
+
+    def get_write_data(self):
+        self.CSVinit()
+        events_list = self.getEventsList()
+        for eventid in events_list:
+            charactersList = self.getCharacters(eventID=eventid)
+            self.writeCSV(eventID=eventid, charactersList=charactersList)
