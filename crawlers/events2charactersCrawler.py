@@ -49,7 +49,7 @@ class events2charactersCrawler(CrawlerBase):
     def CSVinit(self):
         os.makedirs(self.csvOutputPath, exist_ok=True)
         csvPath = os.path.join(self.csvOutputPath, "event2characters.csv")
-        csvfile = open(csvPath, "a")
+        csvfile = open(csvPath, "w")
         csvfile.write("eventID,characterID\n")
         csvfile.close()
 
