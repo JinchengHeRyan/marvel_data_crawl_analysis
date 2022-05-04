@@ -1,9 +1,9 @@
-from marvel.marvel import Marvel
+from crawlers.Base import CrawlerBase
 import os
 import json
 
 
-class charactersCrawler:
+class charactersCrawler(CrawlerBase):
     def __init__(
         self,
         PUBLIC_KEY: str,
@@ -12,15 +12,10 @@ class charactersCrawler:
         limit: int,
         output_dir: str,
     ):
-        self.public_key = PUBLIC_KEY
-        self.private_key = PRIVATE_KEY
+        super().__init__(PUBLIC_KEY, PRIVATE_KEY, limit)
         self.num_needed = num_total
         self.offset = 0
-        self.limit = limit
         self.output_dir = output_dir
-        self.m = Marvel(
-            PUBLIC_KEY=self.public_key, PRIVATE_KEY=self.private_key, LIMIT=self.limit
-        )
         self.characters = self.m.characters
 
     def get_data(self):
