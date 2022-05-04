@@ -1,5 +1,6 @@
 from crawlers.charactersCrawler import charactersCrawler
 from crawlers.imageDownloader import imageDownloader
+from crawlers.utils.util import combine_jsonFiles
 
 
 PUBLIC_KEY = "2c69de0f12c7f9d6406952e6aca6fab7"
@@ -23,3 +24,9 @@ if __name__ == "__main__":
 
     # Download character images
     imageD.downloadAll()
+
+    # Combine all the crawled json files
+    combine_jsonFiles(
+        inputJsonDir="./data/characters/JSON/",
+        outputCombinedDir="./data/characters/JSON/combined/",
+    )

@@ -1,4 +1,5 @@
 from crawlers.eventsCrawler import eventsCrawler
+from crawlers.utils.util import combine_jsonFiles
 
 
 PUBLIC_KEY = "2c69de0f12c7f9d6406952e6aca6fab7"
@@ -17,3 +18,9 @@ evCrawler = eventsCrawler(
 if __name__ == "__main__":
     # Get all events and stored in json files
     evCrawler.get_data()
+
+    # Combine all the crawled json files
+    combine_jsonFiles(
+        inputJsonDir="./data/events/JSON/",
+        outputCombinedDir="./data/events/JSON/combined/",
+    )
