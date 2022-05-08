@@ -85,6 +85,8 @@ fig = go.Figure(
         ],
         xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
         yaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
+        paper_bgcolor="rgb(0,0,0)",
+        plot_bgcolor="rgb(0,0,0)",
     ),
 )
 fig.show()
