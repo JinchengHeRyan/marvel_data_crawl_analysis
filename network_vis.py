@@ -3,9 +3,14 @@ from graphBuilder.graph_build import GraphBuilder
 import networkx as nx
 
 csv_path = "./data/events/CSV/events_characters/event2characters.csv"
-graph_builder = GraphBuilder(csv_path=csv_path)
+combined_json_path = "./data/characters/JSON/combined/combined.json"
+graph_builder = GraphBuilder(
+    csv_path=csv_path, characters_combined_json_path=combined_json_path
+)
 
 G = graph_builder.get_graph()
+characters_list = graph_builder.get_characters_dict()
+
 pos_ = nx.spring_layout(G)
 
 edge_x = []
@@ -62,7 +67,10 @@ node_adjacencies = []
 node_text = []
 for node, adjacencies in enumerate(G.adjacency()):
     node_adjacencies.append(len(adjacencies[1]))
-    node_text.append("# of connections: " + str(len(adjacencies[1])))
+    node_text.append(
+        "{}, # of connections: ".format(characters_list[adjacencies[0]])
+        + str(len(adjacencies[1]))
+    )
 
 node_trace.marker.color = node_adjacencies
 node_trace.text = node_text
