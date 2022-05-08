@@ -50,6 +50,9 @@ class GraphBuilder:
     def get_graph(self) -> nx.Graph:
         return self.graph
 
+    def get_characters_dict(self) -> dict:
+        return self.characters_dict
+
     def centralityRank_to_csv(
         self,
         centrality_types: List[str],
