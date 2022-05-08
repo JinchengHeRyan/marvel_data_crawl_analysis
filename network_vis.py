@@ -26,6 +26,7 @@ edge_trace = go.Scatter(
     line=dict(width=0.5, color="#888"),
     hoverinfo="none",
     mode="lines",
+    opacity=0.2,
 )
 
 node_x = []
