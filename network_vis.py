@@ -27,7 +27,6 @@ edge_trace = go.Scatter(
     hoverinfo="none",
     mode="lines",
 )
-print(edge_trace)
 
 node_x = []
 node_y = []
@@ -47,7 +46,7 @@ node_trace = go.Scatter(
         #'Greys' | 'YlGnBu' | 'Greens' | 'YlOrRd' | 'Bluered' | 'RdBu' |
         #'Reds' | 'Blues' | 'Picnic' | 'Rainbow' | 'Portland' | 'Jet' |
         #'Hot' | 'Blackbody' | 'Earth' | 'Electric' | 'Viridis' |
-        colorscale="YlGnBu",
+        colorscale="Reds",
         reversescale=True,
         color=[],
         size=10,
@@ -69,14 +68,14 @@ node_trace.text = node_text
 fig = go.Figure(
     data=[edge_trace, node_trace],
     layout=go.Layout(
-        title="<br>Network graph made with Python",
+        title="<br>Marvel characters network visualization",
         titlefont_size=16,
         showlegend=False,
         hovermode="closest",
         margin=dict(b=20, l=5, r=5, t=40),
         annotations=[
             dict(
-                text="Python code: <a href='https://plotly.com/ipython-notebooks/network-graphs/'> https://plotly.com/ipython-notebooks/network-graphs/</a>",
+                text="Marvel data visualization",
                 showarrow=False,
                 xref="paper",
                 yref="paper",
@@ -89,3 +88,4 @@ fig = go.Figure(
     ),
 )
 fig.show()
+fig.write_html("./network_vis.html")
