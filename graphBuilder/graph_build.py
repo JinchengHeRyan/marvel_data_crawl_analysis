@@ -6,10 +6,15 @@ from typing import List
 
 
 class GraphBuilder:
-    def __init__(self, csv_path):
+    def __init__(self, csv_path, characters_combined_json_path):
         self.csv_path = csv_path
+        self.characters_combined_json_path = characters_combined_json_path
         self.data = dict()
+        self.characters_dict = dict()
         self.graph = nx.Graph()
+        self.read_data()
+        self.read_json()
+        self.build_graph()
 
     def read_data(self):
         df = pd.read_csv(self.csv_path)
@@ -21,6 +26,14 @@ class GraphBuilder:
             else:
                 self.data[eventID] = list()
 
+    def read_json(self):
+        json_file = open(self.characters_combined_json_path, "r")
+        data = json.load(json_file)
+        for i in range(len(data["results"])):
+            id = data["results"][i]["id"]
+            name = data["results"][i]["name"]
+            self.characters_dict[id] = name
+
     def build_connection(self, node_list: list):
         for i in range(len(node_list) - 1):
             for j in range(i, len(node_list)):
@@ -29,28 +42,19 @@ class GraphBuilder:
                 else:
                     self.graph.add_edge(node_list[i], node_list[j], weight=1)
 
-    def get_graph(self) -> nx.Graph:
-        self.read_data()
+    def build_graph(self):
         for eventID in self.data.keys():
             characters = self.data[eventID]
             self.build_connection(node_list=characters)
+
+    def get_graph(self) -> nx.Graph:
         return self.graph
 
     def centralityRank_to_csv(
         self,
         centrality_types: List[str],
-        characters_combined_json_path: str,
         output_path: str,
     ):
-        json_file = open(characters_combined_json_path, "r")
-        data = json.load(json_file)
-        characters_dict = dict()
-        for i in range(len(data["results"])):
-            id = data["results"][i]["id"]
-            name = data["results"][i]["name"]
-            characters_dict[id] = name
-
-        self.get_graph()
         for cent_type in centrality_types:
             centrality = getattr(nx, cent_type)(self.graph)
             centrality = sorted(centrality.items(), key=lambda x: x[1], reverse=True)
@@ -62,5 +66,5 @@ class GraphBuilder:
             for item in centrality:
                 id = int(item[0])
                 score = item[1]
-                name = characters_dict[id]
+                name = self.characters_dict[id]
                 csv_file.write("{},{},{}\n".format(str(id), name, str(score)))
