@@ -85,6 +85,7 @@ fig = go.Figure(
     data=[edge_trace, node_trace],
     layout=go.Layout(
         title="<br>Marvel characters network visualization",
+        font=dict(color="white"),
         titlefont_size=16,
         showlegend=False,
         hovermode="closest",
@@ -92,6 +93,7 @@ fig = go.Figure(
         annotations=[
             dict(
                 text="Marvel data visualization",
+                font=dict(color="white", size=14),
                 showarrow=False,
                 xref="paper",
                 yref="paper",
