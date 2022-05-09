@@ -2,6 +2,9 @@ import plotly.graph_objects as go
 from graphBuilder.graph_build import GraphBuilder
 import networkx as nx
 import plotly.express as px
+import chart_studio.plotly as py
+import chart_studio.tools as tls
+import random
 
 csv_path = "./data/events/CSV/events_characters/event2characters.csv"
 combined_json_path = "./data/characters/JSON/combined/combined.json"
@@ -16,7 +19,10 @@ pos_ = nx.spring_layout(G)
 
 edge_x = []
 edge_y = []
-for edge in G.edges():
+
+random_rate = 0.02
+
+for edge in random.choices(list(G.edges()), k=int(len(G.edges()) * random_rate)):
     x0, y0 = pos_[edge[0]]
     x1, y1 = pos_[edge[1]]
     edge_x.append(x0)
@@ -101,3 +107,8 @@ fig = go.Figure(
 )
 fig.show()
 fig.write_html("./index.html")
+
+# Upload to chart studio
+py.plot(fig, filename="marvel_network_vis", auto_open=True)
+
+print(tls.get_embed("https://plotly.com/~delteforce23/7"))
