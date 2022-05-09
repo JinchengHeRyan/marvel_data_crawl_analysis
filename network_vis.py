@@ -99,4 +99,4 @@ fig = go.Figure(
     ),
 )
 fig.show()
-fig.write_html("./network_vis.html")
+fig.write_html("./index.html")
