@@ -1,6 +1,7 @@
 import plotly.graph_objects as go
 from graphBuilder.graph_build import GraphBuilder
 import networkx as nx
+import plotly.express as px
 
 csv_path = "./data/events/CSV/events_characters/event2characters.csv"
 combined_json_path = "./data/characters/JSON/combined/combined.json"
@@ -31,7 +32,7 @@ edge_trace = go.Scatter(
     line=dict(width=0.5, color="#888"),
     hoverinfo="none",
     mode="lines",
-    opacity=0.4,
+    opacity=1,
 )
 
 node_x = []
@@ -52,14 +53,14 @@ node_trace = go.Scatter(
         #'Greys' | 'YlGnBu' | 'Greens' | 'YlOrRd' | 'Bluered' | 'RdBu' |
         #'Reds' | 'Blues' | 'Picnic' | 'Rainbow' | 'Portland' | 'Jet' |
         #'Hot' | 'Blackbody' | 'Earth' | 'Electric' | 'Viridis' |
-        colorscale="Reds",
-        reversescale=True,
+        colorscale=px.colors.diverging.Picnic,
+        # reversescale=True,
         color=[],
         size=10,
         colorbar=dict(
             thickness=15, title="Node Connections", xanchor="left", titleside="right"
         ),
-        line_width=2,
+        # line_width=2,
     ),
 )
 
