@@ -1,10 +1,12 @@
-# STATS Proj 2
+# STATS 401 Data Visualization Proj 2
 
 ## Marvel data crawling and analysis
 
 ### Team Member: [@Yixuan Li](https://github.com/austenoooo), [@Ziang Zhou](https://github.com/realzza), [@Jincheng He](https://github.com/JinchengHeRyan)
 
 --------------------
+
+Code in `marvel/` directory is referenced from [here](https://github.com/wrap-away/Marvel-API/tree/master/marvel).
 
 #### Visualization Description:
 
