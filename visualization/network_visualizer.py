@@ -7,6 +7,11 @@ import networkx as nx
 
 class network_visualizer:
     def __init__(self, graph_builder: GraphBuilder, edge_random):
+        """
+        Visualize the network graph
+        :param graph_builder: graph builder class
+        :param edge_random: random factor
+        """
         self.graph_builder = graph_builder
         self.G = self.graph_builder.get_graph()
         self.characters_list = self.graph_builder.get_characters_dict()
