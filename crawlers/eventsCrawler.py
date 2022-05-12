@@ -13,6 +13,15 @@ class eventsCrawler(CrawlerBase):
         output_dir: str,
         need_all_available: bool,
     ):
+        """
+        Crawl the data of all events
+        :param PUBLIC_KEY: Marvel development portal public key
+        :param PRIVATE_KEY: Marvel development portal private key
+        :param num_total: Total number of characters you need to crawl
+        :param limit: The highest volume be crawled in each request
+        :param output_dir: The output directory to store the data
+        :param need_all_available: A boolean to represent whether to crawl all the events available
+        """
         super().__init__(PUBLIC_KEY, PRIVATE_KEY, limit)
         self.num_needed = num_total
         self.offset = 0

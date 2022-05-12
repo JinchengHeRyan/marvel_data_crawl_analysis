@@ -13,6 +13,15 @@ class events2charactersCrawler(CrawlerBase):
         csvOutputPath: str,
         resume_event_id=None,
     ):
+        """
+        Crawl the characters of the events
+        :param PUBLIC_KEY: Marvel development portal public key
+        :param PRIVATE_KEY: Marvel development portal private key
+        :param limit: The highest volume be crawled in each request
+        :param combinedJsonDir: Directory of the combined json file contained events ID
+        :param csvOutputPath: Output directory of CSV file
+        :param resume_event_id: The event ID where need to be resumed, is useful when the crawling process is interrupted
+        """
         super().__init__(PUBLIC_KEY, PRIVATE_KEY, limit)
         self.combinedJsonDir = combinedJsonDir
         self.csvOutputPath = csvOutputPath

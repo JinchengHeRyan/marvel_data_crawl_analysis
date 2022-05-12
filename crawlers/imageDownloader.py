@@ -6,11 +6,20 @@ from .utils.util import getJsonFiles
 
 class imageDownloader:
     def __init__(self, inputJsonDir: str, outputImageDir: str):
+        """
+        Download avatar images of the characters
+        :param inputJsonDir: Directory of characters combined json file
+        :param outputImageDir: Output directory of crawled images
+        """
         self.inputJsonDir = inputJsonDir
         self.outputImageDir = outputImageDir
         self.jsonFiles = list()
 
     def getIDImageURL(self) -> dict:
+        """
+        Get ID -> Image URL
+        :return: return a dict, key is character ID, value is image url
+        """
         ID2ImageURL = dict()
         jsonFiles = getJsonFiles(self.inputJsonDir)
         for file_path in jsonFiles:
