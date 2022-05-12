@@ -6,6 +6,9 @@
 
 --------------------
 
+This is my last assignment before graduation, my role is crawling data and do network analysis and visualization. Happy
+graduation!
+
 Code in `marvel/` directory is referenced from [here](https://github.com/wrap-away/Marvel-API/tree/master/marvel).
 
 #### Visualization Description:
