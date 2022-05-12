@@ -7,6 +7,11 @@ from typing import List
 
 class GraphBuilder:
     def __init__(self, csv_path, characters_combined_json_path):
+        """
+        Build the network graph of all the characters
+        :param csv_path: csv file contains event ID and characters ID
+        :param characters_combined_json_path: json file contains all characters ID
+        """
         self.csv_path = csv_path
         self.characters_combined_json_path = characters_combined_json_path
         self.data = dict()
